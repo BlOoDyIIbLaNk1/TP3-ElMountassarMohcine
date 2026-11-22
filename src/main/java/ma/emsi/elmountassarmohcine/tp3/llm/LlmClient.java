@@ -24,7 +24,9 @@ public class LlmClient {
                 .build();
     }
 
-    public String envoyerRequete(String lieu) {
-        return this.guide.chat(lieu);
+    public String envoyerRequete(String lieu, int nombre) {
+        return this.guide.chat(
+                "Lieu : " + lieu
+                        + "\nNombre d'endroits à visiter : " + nombre);
     }
 }
