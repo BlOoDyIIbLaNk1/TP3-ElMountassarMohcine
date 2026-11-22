@@ -1,25 +1,30 @@
 package ma.emsi.elmountassarmohcine.tp3.resource;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import ma.emsi.elmountassarmohcine.tp3.llm.LlmClient;
 
 @Path("/guide")
 public class GuideTouristiqueResource {
 
+    @Inject
+    private LlmClient llmClient;
+
     /**
-     * Retourne le lieu reçu dans le chemin de la requête.
+     * Donne deux endroits à visiter et le prix moyen d'un repas.
      *
-     * @param villeOuPays nom de la ville ou du pays
-     * @return le lieu demandé
+     * @param villeOuPays ville ou pays à découvrir
+     * @return les informations touristiques au format JSON
      */
     @GET
     @Path("lieu/{ville_ou_pays}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String[] endroitsDeVisite(
+    public String endroitsDeVisite(
             @PathParam("ville_ou_pays") String villeOuPays) {
-        return new String[]{villeOuPays};
+        return llmClient.envoyerRequete(villeOuPays);
     }
 }
